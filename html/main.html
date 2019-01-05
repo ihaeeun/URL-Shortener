@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>URL-Shortener</title>
+        <style>
+            form {
+                margin: 0 auto;
+                text-align: center;
+                padding-top: 10%;
+            }
+            input{
+                line-height: 30px;
+            }
+            </style>
+        <script>
+                var url = JSON.stringify($("#origin").serializeObject());
+                alert(url);
+        </script>
+    </head>
+    <body>
+        <form action="/shorturl" method="GET">
+            <input type='text' id='origin' name ='url' size='50'>
+            <input type='submit' value='submit'>
+        </form>        
+    </body>
+</html>
