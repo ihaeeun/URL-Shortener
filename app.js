@@ -17,20 +17,23 @@ app.get('/', (req, res) => {
 app.get('/shorturl', async (req, res) => {
     
     const origin = req.query.url;
-    console.log(origin);
+    //console.log(origin);
     const originUrl = new URL(origin).href;
     const { pathname: urlPath } = new URL(origin);
     const query = `select shortUrl from urls where originUrl like '${originUrl}'`;
     
-    const data = await db(query);
+    let data = await db(query);
     let result = data[0] ? data[0].shortUrl : null;
-    //console.log(data);
+    //console.log(data)
+    //console.log(result)
     if(!result){
         let shortUrl = shortening(urlPath);
         shortUrl = domain + shortUrl;
+        //console.log(shortUrl)
         const query2 = `insert into urls(originUrl, shortUrl) values('${originUrl}', '${shortUrl}')`;
         await db(query2);
-        result = await db(query)[0].shortUrl;
+        data = await db(query);
+        result = data[0].shortUrl
     }
     res.send(result)
 });
