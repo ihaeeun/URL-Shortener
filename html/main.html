@@ -13,13 +13,22 @@
             input{
                 line-height: 30px;
             }
+            #response{
+                text-align: center;
+                padding-top: 50px;
+            }
             </style>
     </head>
     <body>
-        <form id="main">
-            <input type='text' id='origin' name ='url' size='50'>
-            <input type='submit' value='submit'>
-        </form>
+        <div>
+            <form id="main">
+                <input type='text' id='origin' name ='url' size='50'>
+                <input type='submit' value='submit'>
+            </form>
+        </div>
+        <div id="response">
+        </div>
+
         <script>
             $(document).ready(function(){
                 var frm = $('#main');
@@ -33,8 +42,12 @@
                         data: {"url" : origin},
                         type:'GET',
                         success:function(data) {
-                            alert(data);
-                            //window.location.reload();
+                            //alert(data);
+                            if($("#result")){
+                               $("#result").remove()
+                            }
+                            $("#response").append('<a id=\'result\' href=' + data + '>' + data + '</a>')
+                            
                         },
                         error: function(jqXHR, textStatus, errorThrown){}
                     });
