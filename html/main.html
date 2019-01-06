@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">
         <title>URL-Shortener</title>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <style>
             form {
                 margin: 0 auto;
@@ -12,15 +14,32 @@
                 line-height: 30px;
             }
             </style>
-        <script>
-                var url = JSON.stringify($("#origin").serializeObject());
-                alert(url);
-        </script>
     </head>
     <body>
-        <form action="/shorturl" method="GET">
+        <form id="main">
             <input type='text' id='origin' name ='url' size='50'>
             <input type='submit' value='submit'>
-        </form>        
+        </form>
+        <script>
+            $(document).ready(function(){
+                var frm = $('#main');
+                frm.submit(function(e){
+
+                    e.preventDefault();
+
+                    var origin = $('#origin').val();
+                    $.ajax({
+                        url:'http://localhost:3000/shorturl/',
+                        data: {"url" : origin},
+                        type:'GET',
+                        success:function(data) {
+                            alert(data);
+                            //window.location.reload();
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){}
+                    });
+                });
+            });
+        </script>
     </body>
 </html>

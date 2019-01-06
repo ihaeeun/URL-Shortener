@@ -8,7 +8,6 @@ const conn = mysql.createConnection({
     database: 'url'
 });
 
-
 conn.connect();
 
 const db = util.promisify(conn.query).bind(conn)
